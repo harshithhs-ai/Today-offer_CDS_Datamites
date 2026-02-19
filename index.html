@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Corporate Discount | DataMites</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --brand-blue: #0066ff;
+            --success-green: #008a2e;
+            --text-main: #1d1d1f;
+            --text-grey: #6e6e73;
+            --bg: #fbfbfd;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 380px; /* Mobile friendly width */
+            padding: 30px 24px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.06);
+            text-align: center;
+            position: relative;
+        }
+
+        .brand { font-weight: 800; font-size: 0.9rem; color: var(--text-grey); letter-spacing: 1px; margin-bottom: 20px; display: block; }
+
+        /* Initial View */
+        .price-label { font-size: 0.8rem; color: var(--text-grey); margin-bottom: 4px; }
+        .original-price { font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; color: #333; }
+
+        .instruction { font-size: 0.75rem; font-weight: 600; color: var(--text-grey); margin-bottom: 12px; }
+
+        .input-group {
+            display: flex;
+            background: #f5f5f7;
+            padding: 6px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+        .input-group:focus-within { border-color: var(--brand-blue); background: #fff; }
+
+        input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            outline: none;
+        }
+
+        .btn-apply {
+            background: var(--text-main);
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Revealed View (Hidden initially) */
+        #revealed-content { display: none; animation: fadeIn 0.5s ease-out; }
+        
+        .discount-badge {
+            background: #e6f4ea;
+            color: var(--success-green);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 100px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .offer-price {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--brand-blue);
+            margin-bottom: 5px;
+            letter-spacing: -1px;
+        }
+
+        .validity { font-size: 0.75rem; color: #ff3b30; font-weight: 600; margin-bottom: 25px; }
+
+        /* Buttons */
+        .btn-pay {
+            display: block;
+            background: var(--brand-blue);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            transition: 0.2s;
+        }
+
+        .btn-back {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: var(--text-grey);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid var(--text-grey);
+            padding-bottom: 2px;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <span class="brand">DATAMITES</span>
+        
+        <div id="standard-view">
+            <p class="price-label">Regular fee of Data scientist Course</p>
+            <h2 class="original-price">₹64,451</h2>
+            
+            <p class="instruction">Copy and paste the code to see discounted price</p>
+            <div class="input-group">
+                <input type="text" id="couponInput" placeholder="Enter code" spellcheck="false">
+                <button class="btn-apply" onclick="revealOffer()">Apply</button>
+            </div>
+            <a href="https://wa.me/918951853247" style="font-size: 0.7rem; color: var(--brand-blue); text-decoration: none; font-weight: 600;">Get Code on WhatsApp</a>
+        </div>
+
+        <div id="revealed-content">
+            <div class="discount-badge">CORPORATE OFFER APPLIED</div>
+            <p class="price-label" style="text-decoration: line-through;">Was ₹64,451</p>
+            <h2 class="offer-price">₹43,419/-</h2>
+            <p class="validity">5,000 paid remaining 24,999 payment updated Mohammad Zubair</p>
+            
+            <a href="https://pages.razorpay.com/pl_L7Xd7FfmGqBdDk/view" class="btn-pay">Complete Enrollment</a>
+            <br>
+            <a href="index.html" class="btn-back">Back to Page</a>
+        </div>
+    </div>
+
+    <script>
+        function revealOffer() {
+            const code = document.getElementById('couponInput').value.trim().toUpperCase();
+            
+            if(code === "DATAMITES" || code === "PRO20") {
+                // Professional Confetti (Subtle & Focused)
+                const count = 150;
+                const defaults = { origin: { y: 0.7 }, colors: ['#0066ff', '#1d1d1f', '#ffffff'] };
+
+                function fire(particleRatio, opts) {
+                    confetti(Object.assign({}, defaults, opts, {
+                        particleCount: Math.floor(count * particleRatio)
+                    }));
+                }
+
+                fire(0.25, { spread: 26, startVelocity: 55 });
+                fire(0.2, { spread: 60 });
+                fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+
+                // Switch UI
+                document.getElementById('standard-view').style.display = 'none';
+                document.getElementById('revealed-content').style.display = 'block';
+            } else {
+                alert("Invalid Coupon Code.");
+            }
+        }
+    </script>
+</body>
+</html>
